@@ -1,0 +1,4 @@
+<h4>List of Friends</h4>
+<div *ngFor="let friend of friends$ | async; let i=index">
+  <span >{{i+1}}.</span> {{friend.name}}
+</div>
