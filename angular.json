@@ -127,6 +127,7 @@
   },
   "defaultProject": "frndos",
   "cli": {
+    "defaultCollection": "@ngrx/schematics",
     "analytics": false
   }
 }
