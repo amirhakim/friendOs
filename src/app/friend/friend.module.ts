@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,7 +20,6 @@ import { friendFeatureKey, reducer } from './store/reducer/friend.reducer';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

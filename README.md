@@ -34,6 +34,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     1. View: search box for a person with auto-complete/suggestion, and graph once one is selected
 1. alternative view: complete view of all the friends in the network
     1. we need to add details visualization to the nodes
+1. as it is designed now, having feature modules is not useful
 
 # TODO
 1. naming the person a friend, then naming the connections/friends of the person as friends is very confusing
