@@ -1,4 +1,5 @@
-<svg #graphContainer>
+<div>
+  <svg #graphContainer>
     <line
       *ngFor="let edge of graph.edges"
       [attr.x1]="edge[0].x"
@@ -22,6 +23,17 @@
     </text>
   
   </svg>
-<div>
-  {{stringify(friends$ | async)}}
+  <div>
+    nodes:
+    {{stringify(graph.nodes)}}
+  </div>
+  <div>
+    edges:
+    {{stringify(graph.edges)}}
+  </div>
+
+  <div>
+    selected:
+    {{stringify(graph.selectedNodes)}}
+  </div>
 </div>

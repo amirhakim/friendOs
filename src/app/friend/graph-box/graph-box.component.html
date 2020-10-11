@@ -1,1 +1,13 @@
-<p>graph-box works!</p>
+<app-graph
+  [nodes]="(friends$ | async)"
+  [edges]="(contacts$ | async)"
+></app-graph>
+
+<!-- <div>
+    nodes:
+    {{stringify(friends$ | async)}}
+  </div>
+  <div>
+    edges:
+    {{stringify(contacts$ | async)}}
+  </div> -->

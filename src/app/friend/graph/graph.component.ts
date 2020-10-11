@@ -5,7 +5,8 @@ import { Friend } from 'src/app/models/friend/friend.model';
 import { selectFriend, selectContacts } from '../store/selector/friend.selectors';
 import { FriendState } from '../store/reducer/friend.reducer';
 import {select, Store} from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 
 
@@ -18,35 +19,35 @@ export class GraphComponent implements OnChanges, OnInit {
 
   // event for toggling a selection of a node
   @Output() select: EventEmitter<string> = new EventEmitter<string>();
-  @Input() friends: Friend[] = [];
-  @Input() selectedFriends: Friend[] = [];
-  @Input() contacts: Contact[] = [];
+  @Input() nodes: Friend[] = [];
+  @Input() selectedNodes: Friend[] = [];
+  @Input() edges: Contact[] = [];
   @ViewChild('graphContainer') graphContainer;
 
-  friends$: Observable<Friend[]>;
-  contacts$: Observable<Contact[]>;
 
   constructor(
-    private store: Store<FriendState>
   ) {
-    this.friends$ = this.store.pipe(select(selectFriend));
-    this.contacts$ = this.store.pipe(select(selectContacts));
    }
 
   private simulation = d3.forceSimulation();
 
   ngOnInit(): void {
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
+    // run this only when nodes changed
+    if (!changes.nodes) return;
+
     const nodes = this.simulation.nodes();
 
-    const nodesToAdd = setMinusSet(this.friends, nodes).map(node => ({ ...node }));
-    const nodesToRemove = setMinusSet(nodes, this.friends);
+    const nodesToAdd = setMinusSet(this.nodes, nodes).map(node => ({ ...node }));
+    const nodesToRemove = [setMinusSet(nodes, this.nodes)];
 
     const updatedNodes = setMinusSet(nodes, nodesToRemove).concat(nodesToAdd);
 
-    const edges = this.contacts.map(edge => ({ source: updatedNodes[edge.fromId], target: updatedNodes[edge.toId] }))
+    const edges = this.edges.map(edge => ({ source: edge.fromId, target: edge.toId }))
 
     this.simulation.nodes(updatedNodes)
       .force('charge', d3.forceManyBody())
@@ -58,14 +59,16 @@ export class GraphComponent implements OnChanges, OnInit {
 
   get graph() {
     const nodes = this.simulation.nodes();
-    const selectedNodes = nodes.filter(node => this.selectedFriends.map(selectedNode => selectedNode.id).includes(node['id']))
+    const selectedNodes = [];
 
-    const edges = this.contacts.map(edge => ([nodes[edge.fromId], nodes[edge.toId]]))
+    const edges = this.edges.map(edge => ([edge.fromId, edge.toId]))
+
     return { nodes, edges, selectedNodes }
   }
   stringify = JSON.stringify
 }
 
+// todo
 function setMinusSet(a: any[], b: any[]): any[] {
   return a.filter(ael => !b.map(bel => bel.id).includes(ael.id))
 }
