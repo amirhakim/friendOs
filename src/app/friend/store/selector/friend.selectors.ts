@@ -10,3 +10,8 @@ export const selectFriend = createSelector(
     selectFriendState,
     (state: fromFriend.FriendState) => state.friends
 )
+
+export const selectContacts = createSelector(
+    selectFriendState,
+    (state: fromFriend.FriendState) => state.contacts
+)

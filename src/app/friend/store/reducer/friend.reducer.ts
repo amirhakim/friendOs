@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { Contact } from 'src/app/models/contact/contact.model';
 import { Friend } from 'src/app/models/friend/friend.model';
 import * as FriendActions from '../action/friend.actions'
 
@@ -7,10 +8,12 @@ export const friendFeatureKey = 'friend';
 
 export interface FriendState {
   friends: Friend[];
+  contacts: Contact[];
 }
 
 export const initialFriendState: FriendState = {
-  friends: [{id:'one',name:'one'}]
+  friends: [{id:'one',name:'one'},{id:'two',name:'two'},{id:'three',name:'three'}],
+  contacts: [{id:'c1',fromId:'one',toId:'two'},{id:'c2',fromId:'one',toId:'three'}]
 };
 
 
