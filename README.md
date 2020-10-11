@@ -38,3 +38,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # TODO
 1. naming the person a friend, then naming the connections/friends of the person as friends is very confusing
+1. fix deprecated packages and fix breaking changes
+1. ng build --prod and fix errors
