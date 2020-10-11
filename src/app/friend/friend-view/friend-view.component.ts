@@ -4,6 +4,7 @@ import { Friend } from 'src/app/models/friend/friend.model';
 import { FriendState } from '../store/reducer/friend.reducer';
 import {select, Store} from '@ngrx/store';
 import { selectFriend } from '../store/selector/friend.selectors';
+import { deleteFriends } from '../store/action/friend.actions';
 
 @Component({
   selector: 'app-friend-view',
@@ -19,6 +20,11 @@ export class FriendViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  delete(friend: Friend) {
+    console.log('deleting', friend);
+    this.store.dispatch(deleteFriends(friend))
   }
 
 }

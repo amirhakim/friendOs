@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule} from '@angular/material/checkbox';
+import { MatIconModule} from '@angular/material/icon';
+import { MatListModule} from '@angular/material/list';
 import { FriendViewComponent } from './friend-view/friend-view.component';
 import { FriendAddComponent } from './friend-add/friend-add.component';
 import { StoreModule } from '@ngrx/store';
@@ -23,7 +25,9 @@ import { friendFeatureKey, reducer } from './store/reducer/friend.reducer';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatListModule,
     MatCheckboxModule,
+    MatIconModule,
     CommonModule,
     StoreModule.forFeature(friendFeatureKey, reducer)
   ],

@@ -25,3 +25,15 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+# Amir's Notes
+
+1. side bar where you have 2 choices : add , view :
+    1. use routing to switch between these 
+    1. Add: the form to add a new person to the network, the friends field may have auto-complete/suggestion
+    1. View: search box for a person with auto-complete/suggestion, and graph once one is selected
+1. alternative view: complete view of all the friends in the network
+    1. we need to add details visualization to the nodes
+
+# TODO
+1. naming the person a friend, then naming the connections/friends of the person as friends is very confusing

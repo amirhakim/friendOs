@@ -10,7 +10,7 @@ export interface FriendState {
 }
 
 export const initialFriendState: FriendState = {
-  friends: []
+  friends: [{id:'one',name:'one'}]
 };
 
 
@@ -20,9 +20,16 @@ export const friendReducer = createReducer(
     (state: FriendState, {friend}) =>
     ({
       ...state,
-      friends: [...state.friends, friend]
+      friends: [...state.friends, {...friend, id: (((1+Math.random())*0x10000)|0).toString(16).substring(1)}]
     })
-    )
+    ),
+    on(FriendActions.deleteFriends,
+      (state: FriendState, {friend}) =>
+      ({
+        ...state,
+        friends: state.friends.filter(f => f.id !== friend.id)
+      })
+      )
 );
 
 export function reducer(state: FriendState | undefined, action: Action): any {

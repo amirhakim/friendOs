@@ -6,6 +6,10 @@ export const addFriends = createAction(
   (friend: Friend) => ({friend})
 );
 
+export const deleteFriends = createAction(
+  '[Friend] Delete Friend',
+  (friend: Friend) => ({friend})
+);
 
 
 

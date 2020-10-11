@@ -1,4 +1,13 @@
 <h4>List of Friends</h4>
-<div *ngFor="let friend of friends$ | async; let i=index">
-  <span >{{i+1}}.</span> {{friend.name}}
-</div>
+
+<mat-list>
+  <mat-list-item *ngFor="let friend of friends$ | async; let i=index">
+    <p matLine>
+      <span> {{i+1}} .</span>
+      <span > {{friend.name}} </span>
+      <button mat-icon-button (click)="delete(friend)">
+        <mat-icon>delete_forever</mat-icon>
+     </button>
+    </p>
+  </mat-list-item>
+</mat-list>
