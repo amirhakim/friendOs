@@ -6,11 +6,13 @@ import { GraphBoxComponent } from './friend/graph-box/graph-box.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: FriendViewComponent },
-  { path: 'list', component: FriendViewComponent },
-  { path: 'add', component: FriendAddComponent },
-  { path: 'graph', component: GraphBoxComponent}
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { 
+    path: 'home', 
+    loadChildren: () =>
+      import('./friend/friend.module').then(m => m.FriendModule) 
+  },
+  { path: '**', redirectTo: 'home'},
 ];
 
 @NgModule({

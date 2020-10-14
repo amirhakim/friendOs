@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -14,13 +13,15 @@ import { StoreModule } from '@ngrx/store';
 import { friendFeatureKey, reducer } from './store/reducer/friend.reducer';
 import { GraphComponent } from './graph/graph.component';
 import { GraphBoxComponent } from './graph-box/graph-box.component';
+import { FriendComponent } from './friend/friend.component';
+import { RouterModule } from '@angular/router';
+import { FriendResolverService } from './resolver/friend-resolver.service';
 
 
 
 @NgModule({
-  declarations: [FriendViewComponent, FriendAddComponent, GraphComponent, GraphBoxComponent],
+  declarations: [FriendViewComponent, FriendAddComponent, GraphComponent, GraphBoxComponent, FriendComponent],
   imports: [
-    BrowserModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -29,12 +30,26 @@ import { GraphBoxComponent } from './graph-box/graph-box.component';
     MatCheckboxModule,
     MatIconModule,
     CommonModule,
-    StoreModule.forFeature(friendFeatureKey, reducer)
-  ],
-  exports: [
-    FriendViewComponent,
-    FriendAddComponent,
-    GraphComponent
+    StoreModule.forFeature(friendFeatureKey, reducer),
+    RouterModule.forChild([
+      {
+        path: '',
+        component: FriendViewComponent
+      },
+      {
+        path: ':id/detail',
+        component: FriendComponent,
+        resolve: { resolvedFriend: FriendResolverService}
+      },
+      {
+        path: 'graph',
+        component : GraphBoxComponent
+      },
+      {
+        path: 'edit',
+        component : FriendAddComponent
+      }
+    ])
   ]
 })
 export class FriendModule { }

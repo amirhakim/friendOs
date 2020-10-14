@@ -5,3 +5,8 @@ export class Friend {
     age? = 0;
     weight? = 0;
 }
+
+export class FriendResolved {
+    friend: Friend;
+    error?: any;
+}
