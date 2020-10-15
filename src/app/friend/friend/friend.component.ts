@@ -4,7 +4,7 @@ import { Friend, FriendResolved } from 'src/app/models/friend/friend.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import { FriendState } from '../store/reducer/friend.reducer';
-import { addFriends } from '../store/action/friend.actions';
+import { addFriends, editFriends } from '../store/action/friend.actions';
 
 
 
@@ -52,7 +52,11 @@ export class FriendComponent implements OnInit {
     }
     console.log(this.addFrndForm.value);
     const newFriend = this.addFrndForm.value;
-    this.store.dispatch(addFriends(newFriend))
+    if(this.friend) {
+      this.store.dispatch(editFriends({id: this.friend.id, ...newFriend}))
+    } else {
+      this.store.dispatch(addFriends(newFriend))
+    }
   }
 
 }
