@@ -1,1 +1,36 @@
-<p>friend works!</p>
+<div class="add-frnd-conrainer">
+    <div class="add-frnd-form-cont">
+        <form [formGroup]="addFrndForm" (submit)="submit()" > 
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-error *ngIf="addFrndForm.controls.name.touched && addFrndForm.controls.name.invalid">
+                  <span *ngIf="addFrndForm.controls.name.errors.required">This field is mandatory.</span>
+                  <span *ngIf="addFrndForm.controls.name.errors.pattern">This field is invalid.</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Friends</mat-label>
+                <input matInput formControlName="friends" type="friends">
+                <mat-error *ngIf="addFrndForm.controls.friends.touched && addFrndForm.controls.friends.invalid">
+                  <span *ngIf="addFrndForm.controls.friends.errors.required">This field is mandatory.</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Age</mat-label>
+                <input matInput formControlName="age" type="age">
+                <mat-error *ngIf="addFrndForm.controls.age.touched && addFrndForm.controls.age.invalid">
+                  <span *ngIf="addFrndForm.controls.age.errors.required">This field is mandatory.</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Weight</mat-label>
+                <input matInput formControlName="weight" type="weight">
+                <mat-error *ngIf="addFrndForm.controls.weight.touched && addFrndForm.controls.weight.invalid">
+                  <span *ngIf="addFrndForm.controls.weight.errors.required">This field is mandatory.</span>
+                </mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit">Save</button>
+        </form>
+    </div>
+</div>

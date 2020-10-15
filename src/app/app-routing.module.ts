@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./friend/friend.module').then(m => m.FriendModule) 
   },
-  { path: '**', redirectTo: 'home'},
+  // { path: '**', redirectTo: 'home'},
 ];
 
 @NgModule({

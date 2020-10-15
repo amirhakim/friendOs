@@ -5,6 +5,9 @@
     <p matLine>
       <span> {{i+1}} .</span>
       <span > {{friend.name}} </span>
+      <button mat-icon-button (click)="edit(friend)">
+        <mat-icon>edit</mat-icon>
+     </button>
       <button mat-icon-button (click)="delete(friend)">
         <mat-icon>delete_forever</mat-icon>
      </button>

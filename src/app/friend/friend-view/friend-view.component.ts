@@ -5,6 +5,8 @@ import { FriendState } from '../store/reducer/friend.reducer';
 import {select, Store} from '@ngrx/store';
 import { selectFriend } from '../store/selector/friend.selectors';
 import { deleteFriends } from '../store/action/friend.actions';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-friend-view',
@@ -15,7 +17,10 @@ export class FriendViewComponent implements OnInit {
 
   friends$: Observable<Friend[]>;
 
-  constructor(private store: Store<FriendState>) {
+  constructor(
+    private store: Store<FriendState>,
+    private router: Router
+    ) {
     this.friends$ = this.store.pipe(select(selectFriend))
   }
 
@@ -25,6 +30,10 @@ export class FriendViewComponent implements OnInit {
   delete(friend: Friend) {
     console.log('deleting', friend);
     this.store.dispatch(deleteFriends(friend))
+  }
+
+  edit(friend: Friend) {
+    this.router.navigate([friend.id,'detail']);
   }
 
 }
