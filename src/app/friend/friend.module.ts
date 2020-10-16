@@ -16,11 +16,15 @@ import { GraphBoxComponent } from './graph-box/graph-box.component';
 import { FriendComponent } from './friend/friend.component';
 import { RouterModule } from '@angular/router';
 import { FriendResolverService } from './resolver/friend-resolver.service';
+import { ContactComponent } from './contact/contact.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 
 
 @NgModule({
-  declarations: [FriendViewComponent, FriendAddComponent, GraphComponent, GraphBoxComponent, FriendComponent],
+  declarations: [FriendViewComponent, FriendAddComponent, GraphComponent, GraphBoxComponent, FriendComponent, ContactComponent],
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -29,6 +33,8 @@ import { FriendResolverService } from './resolver/friend-resolver.service';
     MatListModule,
     MatCheckboxModule,
     MatIconModule,
+    MatAutocompleteModule,
+    MatChipsModule,
     CommonModule,
     StoreModule.forFeature(friendFeatureKey, reducer),
     RouterModule.forChild([

@@ -18,6 +18,7 @@ import { addFriends, editFriends } from '../store/action/friend.actions';
 export class FriendComponent implements OnInit {
 
   friend: Friend;
+  friendId: string;
   error: string;
   addFrndForm: FormGroup;
   nameRegex = /^[a-zA-Z]/;
@@ -39,6 +40,7 @@ export class FriendComponent implements OnInit {
     this.friend = resolvedData.friend;
     this.error = resolvedData.error;
     if(this.friend) {
+      this.friendId = this.friend.id;
       this.addFrndForm.get('name').setValue(this.friend.name);
       this.addFrndForm.get('friends').setValue(this.friend.name);
       this.addFrndForm.get('age').setValue(this.friend.name);
@@ -57,6 +59,10 @@ export class FriendComponent implements OnInit {
     } else {
       this.store.dispatch(addFriends(newFriend))
     }
+  }
+
+  onContactsUpdate(contactsId: string[]) {
+    console.log("FRIEND COMP: ", contactsId)
   }
 
 }

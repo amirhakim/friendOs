@@ -30,6 +30,7 @@
                   <span *ngIf="addFrndForm.controls.weight.errors.required">This field is mandatory.</span>
                 </mat-error>
             </mat-form-field>
+            <app-contact [friendId]="friendId" (contacts)="onContactsUpdate($event)" ></app-contact>
             <button mat-raised-button color="primary" type="submit">Save</button>
         </form>
     </div>
