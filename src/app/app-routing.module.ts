@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FriendAddComponent } from './friend/friend-add/friend-add.component';
-import { FriendViewComponent } from './friend/friend-view/friend-view.component';
-import { GraphBoxComponent } from './friend/graph-box/graph-box.component';
 
 
 const routes: Routes = [

@@ -8,7 +8,6 @@ import { MatCheckboxModule} from '@angular/material/checkbox';
 import { MatIconModule} from '@angular/material/icon';
 import { MatListModule} from '@angular/material/list';
 import { FriendViewComponent } from './friend-view/friend-view.component';
-import { FriendAddComponent } from './friend-add/friend-add.component';
 import { StoreModule } from '@ngrx/store';
 import { friendFeatureKey, reducer } from './store/reducer/friend.reducer';
 import { GraphComponent } from './graph/graph.component';
@@ -22,10 +21,8 @@ import { MatCardModule } from '@angular/material/card'
 import {MatChipsModule} from '@angular/material/chips';
 
 
-
-
 @NgModule({
-  declarations: [FriendViewComponent, FriendAddComponent, GraphComponent, GraphBoxComponent, FriendComponent, ContactComponent],
+  declarations: [FriendViewComponent, GraphComponent, GraphBoxComponent, FriendComponent, ContactComponent],
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -52,10 +49,6 @@ import {MatChipsModule} from '@angular/material/chips';
       {
         path: 'graph',
         component : GraphBoxComponent
-      },
-      {
-        path: 'edit',
-        component : FriendAddComponent
       }
     ])
   ]

@@ -6,6 +6,8 @@ import { Friend, FriendResolved } from 'src/app/models/friend/friend.model';
 import { addContact, addFriends, deleteContact, editFriends } from '../store/action/friend.actions';
 import { FriendState } from '../store/reducer/friend.reducer';
 import { Router } from '@angular/router';
+import { debounceTime, throttle, throttleTime } from 'rxjs/operators';
+import { interval } from 'rxjs';
 
 
 @Component({
@@ -51,6 +53,8 @@ export class FriendComponent implements OnInit {
       this.addFrndForm.get('age').setValue(this.friend.name);
       this.addFrndForm.get('weight').setValue(this.friend.name);
     }
+
+    this.addFrndForm.valueChanges.pipe(debounceTime(501)).forEach(v => console.log("OBBB: ",v))
   }
 
   submit() {
