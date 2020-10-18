@@ -1,16 +1,25 @@
-<h4>List of Friends</h4>
-
-<mat-list>
-  <mat-list-item *ngFor="let friend of friends$ | async; let i=index">
-    <p matLine>
-      <span> {{i+1}} .</span>
-      <span > {{friend.name}} </span>
-      <button mat-icon-button (click)="edit(friend)">
-        <mat-icon>edit</mat-icon>
-     </button>
-      <button mat-icon-button (click)="delete(friend)">
-        <mat-icon>delete_forever</mat-icon>
-     </button>
-    </p>
-  </mat-list-item>
-</mat-list>
+<div>
+  <mat-card>
+    <mat-card-title>All Friends...</mat-card-title>
+      <mat-list>
+        <mat-list-item *ngFor="let friend of friends$ | async; let i=index">
+          <p matLine>
+            <span> {{i+1}} .</span>
+            <span ><b>Name: </b> {{friend.name}} </span>
+          </p>
+          <p matLine>
+            <span><b>Age: </b> {{friend.age}},  </span>
+            <span><b>weight: </b> {{friend.weight}},  </span>
+            <span><b>ID# </b> {{friend.weight}}  </span>
+          </p>
+          <button mat-stroked-button (click)="edit(friend)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <span></span>
+          <button mat-icon-button color="warn" (click)="delete(friend)">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+  </mat-card>
+</div>

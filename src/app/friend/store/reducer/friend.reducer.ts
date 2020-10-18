@@ -12,7 +12,7 @@ export interface FriendState {
 }
 
 export const initialFriendState: FriendState = {
-  friends: [{id:'one',name:'one'},{id:'two',name:'two'},{id:'three',name:'three'}],
+  friends: [{id:'one',name:'one',age:25,weight:80},{id:'two',name:'two',age:30,weight:50},{id:'three',name:'three',age:20,weight:90}],
   contacts: [{id:'c1',fromId:'one',toId:'two'},{id:'c2',fromId:'one',toId:'three'}]
 };
 
@@ -47,11 +47,18 @@ export const friendReducer = createReducer(
       contacts: [...state.contacts, {...contact, id: (((1+Math.random())*0x10000)|0).toString(16).substring(1)}]
     })
     ),
+  on(FriendActions.editContact,
+    (state: FriendState, {contact}) =>
+    ({
+      ...state,
+      contacts: [...state.contacts.filter(c => c.id !== contact.id), contact]
+    })
+    ),
   on(FriendActions.deleteContact,
     (state: FriendState, {contact}) =>
     ({
       ...state,
-      contacts: state.contacts.filter(c => c.id !== contact.id)
+      contacts: state.contacts.filter(c => !(c.fromId === contact.fromId && c.toId === contact.toId))
     })
     )
 );

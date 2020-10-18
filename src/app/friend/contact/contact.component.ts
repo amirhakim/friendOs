@@ -1,17 +1,11 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
-import { Friend } from 'src/app/models/friend/friend.model';
-import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
-import { Store, select } from '@ngrx/store';
-import { FriendState } from '../store/reducer/friend.reducer';
-import { selectFriend } from '../store/selector/friend.selectors';
-import { selectContacts } from '../store/selector/friend.selectors';
-import { addContact, deleteContact } from '../store/action/friend.actions';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { map, startWith } from 'rxjs/operators';
 import { Contact } from 'src/app/models/contact/contact.model';
-import { map, catchError, filter, take, startWith } from 'rxjs/operators';
+import { Friend } from 'src/app/models/friend/friend.model';
 
 
 
@@ -26,71 +20,50 @@ export class ContactComponent implements OnInit {
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA ];
-  fruitCtrl = new FormControl();
+  contactCtrl = new FormControl();
   filteredFruits: Observable<string[]>;
   fruits: string[] = ['Lemon'];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
-  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  @ViewChild('contactInput') contactInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  @Input() friendId: string;
-  @Output() contacts: EventEmitter<string[]> = new EventEmitter<string[]>()
+  // @Input() contactsIn: Contact[];
+  @Output() contactsOut: EventEmitter<Contact[]> = new EventEmitter<Contact[]>()
+  @Input() contactsAvailable: Friend[]
+  @Input() contactsSelected: Friend[]
+  contactsFiltered: Observable<Friend[]>;
 
   constructor() {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-        startWith(null),
-        map((fruit: string | null) => fruit ? this._filter(fruit) : setMinusSet(this.allFruits,this.fruits).slice()));
+
+    this.contactsFiltered = this.contactCtrl.valueChanges.pipe(
+      startWith(null),
+      map((name: Friend | string | null) => {
+        let res =  (name ? 
+      this.contactsAvailable.filter(c => c.name.toLowerCase()
+        .indexOf(typeof name === "string" ? name.toLowerCase() : name.name.toLowerCase())===0)
+      : this.contactsAvailable);
+    
+      return res;
+    })
+    )
   }
+
   ngOnInit(): void {
-    console.log("CONTACT Comp: ", this.friendId)
+    console.debug("contact.component init")
   }
 
-  add(event: MatChipInputEvent): void {
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
-  }
-
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
-
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
-      this.contacts.emit(this.fruits);
-    }
+  remove(contact: Friend): void {
+    this.contactsSelected = this.contactsSelected.filter(c => c.id !== contact.id)
+    this.contactsAvailable.push(contact)
+    this.contactsOut.emit(this.contactsSelected)
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
-    this.contacts.emit(this.fruits)
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return setMinusSet(this.allFruits,this.fruits).filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    this.contactsSelected.push(event.option.value)
+    this.contactsAvailable = this.contactsAvailable.filter(c => c.id !== event.option.value.id);
+    this.contactInput.nativeElement.value = '';
+    this.contactCtrl.setValue(null);
+    this.contactsOut.emit(this.contactsSelected)
   }
 }
-
-function setMinusSet(a: string[], b: string[]): string[] {
-  return a.filter(ael => !b.map(bel => bel.toLowerCase()).includes(ael.toLowerCase()))
-}
-
-// constructor(
-//   public formBuilder: FormBuilder,
-//   private store: Store<FriendState>
-// ) { 
-
-// }
-
-  // friends$: Observable<Friend[]>;
-  // contacts$: Observable<Contact[]>;
-  // @Input() friendId: string;
-  // @Output() contacts: EventEmitter<string[]> = new EventEmitter<string[]>()
-    // this.friends$ = this.store.pipe(select(selectFriend))
-    // this.contacts$ = this.store.pipe(
-    //   select(selectContacts),
-    //   map(xr => xr.filter(ct => ct.fromId===this.friendId || ct.toId===this.friendId))
-    //   );

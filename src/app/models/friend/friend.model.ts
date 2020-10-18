@@ -1,12 +1,15 @@
+import { Contact } from '../contact/contact.model';
+
 export class Friend {
     id? = '';
     name? = '';
-    friends? = [];
     age? = 0;
     weight? = 0;
 }
 
 export class FriendResolved {
-    friend: Friend;
+    friend: Friend ;
+    contacts: Contact[];
+    others: Contact[];
     error?: any;
 }

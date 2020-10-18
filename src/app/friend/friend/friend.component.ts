@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Friend, FriendResolved } from 'src/app/models/friend/friend.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Store} from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Friend, FriendResolved } from 'src/app/models/friend/friend.model';
+import { addContact, addFriends, deleteContact, editFriends } from '../store/action/friend.actions';
 import { FriendState } from '../store/reducer/friend.reducer';
-import { addFriends, editFriends } from '../store/action/friend.actions';
-
-
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,6 +16,10 @@ import { addFriends, editFriends } from '../store/action/friend.actions';
 export class FriendComponent implements OnInit {
 
   friend: Friend;
+  contacts: Friend[];
+  originalContacts: Friend[];
+  otherContacts: Friend[];
+  newContacts: Friend[];
   friendId: string;
   error: string;
   addFrndForm: FormGroup;
@@ -26,23 +28,26 @@ export class FriendComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private store: Store<FriendState>
+    private store: Store<FriendState>,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
     this.addFrndForm = this.formBuilder.group({
       name: [null, [Validators.required, Validators.pattern(this.nameRegex)]],
-      friends: [null, [Validators.required]],
       age: [null, [Validators.required]],
       weight: [null, [Validators.required]]
     });
     const resolvedData: FriendResolved = this.route.snapshot.data['resolvedFriend'];
     this.friend = resolvedData.friend;
+    this.contacts = resolvedData.contacts;
+    this.originalContacts = this.contacts.map(c=>c)
+    this.otherContacts = resolvedData.others;
     this.error = resolvedData.error;
+    this.newContacts = []
     if(this.friend) {
       this.friendId = this.friend.id;
       this.addFrndForm.get('name').setValue(this.friend.name);
-      this.addFrndForm.get('friends').setValue(this.friend.name);
       this.addFrndForm.get('age').setValue(this.friend.name);
       this.addFrndForm.get('weight').setValue(this.friend.name);
     }
@@ -52,17 +57,22 @@ export class FriendComponent implements OnInit {
     if(!this.addFrndForm.valid){
       return;
     }
-    console.log(this.addFrndForm.value);
-    const newFriend = this.addFrndForm.value;
+    let newFriend = this.addFrndForm.value;
+    let deletedContacts = this.originalContacts.filter(oc => !this.newContacts.map(nc => nc.id).includes(oc.id))
+    let addedContacts = this.newContacts.filter(nc => !this.originalContacts.map(oc => oc.id).includes(nc.id))
     if(this.friend) {
       this.store.dispatch(editFriends({id: this.friend.id, ...newFriend}))
     } else {
       this.store.dispatch(addFriends(newFriend))
     }
+    addedContacts.map(dc => ({fromId: this.friendId, toId: dc.id})).forEach(i => this.store.dispatch(addContact(i)))
+    deletedContacts.map(dc => ({fromId: this.friendId, toId: dc.id})).forEach(i => this.store.dispatch(deleteContact(i)))
+    this.router.navigate(['/']);
   }
 
-  onContactsUpdate(contactsId: string[]) {
-    console.log("FRIEND COMP: ", contactsId)
+  onContactsUpdate(updatedContacts: Friend[]) {
+    console.info("friend comp: ", updatedContacts);
+    this.newContacts = updatedContacts;
   }
 
 }

@@ -22,7 +22,12 @@ export const addContact = createAction(
   (contact: Contact) => ({contact})
 );
 
+export const editContact = createAction(
+  '[Friend] Edit Contact',
+  (contact: Contact, id: string) => ({contact})
+);
+
 export const deleteContact = createAction(
-  '[Friend] delete Contact',
+  '[Friend] Delete Contact',
   (contact: Contact) => ({contact})
 );

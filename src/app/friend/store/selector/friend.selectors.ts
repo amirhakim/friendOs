@@ -20,3 +20,9 @@ export const selectContacts = createSelector(
     selectFriendState,
     (state: fromFriend.FriendState) => state.contacts
 )
+
+export const selectContactById = createSelector(
+    selectFriendState,
+    (state: fromFriend.FriendState, id: string) => 
+    state.contacts.filter(c => c.fromId === id || c.toId ===id)
+)
