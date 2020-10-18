@@ -1,7 +1,7 @@
 <div class="add-frnd-conrainer">
     <div class="add-frnd-form-cont">
       <mat-card>
-        <mat-card-title>Details of Friend ID#{{friendId}}</mat-card-title>
+        <mat-card-title>{{friendId ? 'Details of Friend ID#':'Create New Friend'}}{{friendId}}</mat-card-title>
                 <form [formGroup]="addFrndForm" (submit)="submit()" > 
             <mat-form-field class="form-field" appearance="outline">
                 <mat-label>Name</mat-label>
