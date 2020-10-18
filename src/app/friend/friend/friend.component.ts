@@ -23,7 +23,7 @@ export class FriendComponent implements OnInit {
   friendId: string;
   error: string;
   addFrndForm: FormGroup;
-  nameRegex = /^[a-zA-Z]/;
+  nameRegex = /^[a-z ,.'-]+$/i;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,9 +34,9 @@ export class FriendComponent implements OnInit {
 
   ngOnInit(): void {
     this.addFrndForm = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.pattern(this.nameRegex)]],
-      age: [null, [Validators.required]],
-      weight: [null, [Validators.required]]
+      name: [null, [Validators.required, Validators.pattern(this.nameRegex), Validators.minLength(2), Validators.maxLength(60)]],
+      age: [null, [Validators.required, Validators.min(6), Validators.max(120)]],
+      weight: [null, [Validators.required, Validators.min(0), Validators.max(100)]]
     });
     const resolvedData: FriendResolved = this.route.snapshot.data['resolvedFriend'];
     this.friend = resolvedData.friend;

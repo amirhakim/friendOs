@@ -8,7 +8,8 @@
                 <input matInput formControlName="name" required>
                 <mat-error *ngIf="addFrndForm.controls.name.touched && addFrndForm.controls.name.invalid">
                   <span *ngIf="addFrndForm.controls.name.errors.required">This field is mandatory.</span>
-                  <span *ngIf="addFrndForm.controls.name.errors.pattern">This field is invalid.</span>
+                  <span *ngIf="addFrndForm.controls.name.errors.pattern">Not a valide name.</span>
+                  <span *ngIf="addFrndForm.controls.name.errors.minlength || addFrndForm.controls.name.errors.maxlength">Number of characters 2 to 60.</span>
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="form-field" appearance="outline">
@@ -16,6 +17,7 @@
                 <input matInput formControlName="age" type="age">
                 <mat-error *ngIf="addFrndForm.controls.age.touched && addFrndForm.controls.age.invalid">
                   <span *ngIf="addFrndForm.controls.age.errors.required">This field is mandatory.</span>
+                  <span *ngIf="addFrndForm.controls.age.errors.min || addFrndForm.controls.age.errors.max">Ages 6 to 120.</span>
                 </mat-error>
             </mat-form-field>
             <mat-form-field class="form-field" appearance="outline">
@@ -23,6 +25,7 @@
                 <input matInput formControlName="weight" type="weight">
                 <mat-error *ngIf="addFrndForm.controls.weight.touched && addFrndForm.controls.weight.invalid">
                   <span *ngIf="addFrndForm.controls.weight.errors.required">This field is mandatory.</span>
+                  <span *ngIf="addFrndForm.controls.weight.errors.min || addFrndForm.controls.weight.errors.max">Weight 0 to 100.</span>
                 </mat-error>
             </mat-form-field>
             <app-contact 
