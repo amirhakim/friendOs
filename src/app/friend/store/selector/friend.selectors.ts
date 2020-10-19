@@ -26,3 +26,13 @@ export const selectContactById = createSelector(
     (state: fromFriend.FriendState, id: string) => 
     state.contacts.filter(c => c.fromId === id || c.toId ===id)
 )
+
+export const selectSelectFriend = createSelector(
+    selectFriendState,
+    (state: fromFriend.FriendState) => state.selectFriend
+)
+
+export const selectSelectContacts = createSelector(
+    selectFriendState,
+    (state: fromFriend.FriendState) => state.selectContacts
+)

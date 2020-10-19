@@ -2,10 +2,15 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { combineLatest, Observable } from 'rxjs';
+import { concatMap, map, startWith } from 'rxjs/operators';
 import { Contact } from 'src/app/models/contact/contact.model';
 import { Friend } from 'src/app/models/friend/friend.model';
+import { FriendState } from '../store/reducer/friend.reducer';
+import { selectContactById, selectFriend } from '../store/selector/friend.selectors';
+
 
 
 
@@ -21,9 +26,6 @@ export class ContactComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA ];
   contactCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
-  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
   @ViewChild('contactInput') contactInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -34,7 +36,10 @@ export class ContactComponent implements OnInit {
   @Input() contactsSelected: Friend[]
   contactsFiltered: Observable<Friend[]>;
 
-  constructor() {
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<FriendState>,
+  ) {
 
     this.contactsFiltered = this.contactCtrl.valueChanges.pipe(
       startWith(null),
@@ -51,6 +56,27 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     console.debug("contact.component init")
+
+    this.route.params.pipe(
+      concatMap(id => {
+      return  combineLatest([
+        this.store.pipe(select(selectFriend)), 
+        this.store.pipe(select(selectContactById, id.id))
+      ]).pipe(
+      map((fc) => ({
+        contacts:fc[1]
+          .reduce((acc,cur) => acc.concat(cur.fromId === id.id ? cur.toId : cur.fromId), [])
+          .map(c => (fc[0].filter(f => f.id === c)[0])),
+        others:fc[0].filter(f => 
+          !(fc[1].reduce((acc,cur) => acc.concat(cur.fromId === id.id ? cur.toId : cur.fromId), [])
+            .concat(id.id)
+            .includes(f.id))), 
+      })))
+      })
+    ).forEach(v => console.log(v))
+
+
+
   }
 
   remove(contact: Friend): void {

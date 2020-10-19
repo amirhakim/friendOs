@@ -1,8 +1,8 @@
 <div class="add-frnd-conrainer">
   <div class="add-frnd-form-cont">
     <mat-card>
-      <mat-card-title>{{friendId ? 'Details of Friend ID#':'Create New Friend'}}{{friendId}}</mat-card-title>
-      <form [formGroup]="addFrndForm" (submit)="submit()" > 
+      <mat-card-title>Profile...</mat-card-title>
+      <form [formGroup]="addFrndForm" > 
         <mat-form-field class="form-field" appearance="outline">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" required>
@@ -28,10 +28,7 @@
               <span *ngIf="addFrndForm.controls.weight.errors.min || addFrndForm.controls.weight.errors.max">Weight 0 to 100.</span>
             </mat-error>
         </mat-form-field>
-        <app-contact 
-        [contactsSelected]="contacts" [contactsAvailable]="otherContacts" (contactsOut)="onContactsUpdate($event)"
-        ></app-contact>
-        <button mat-raised-button color="primary" type="submit">Save</button>
+        <app-contact></app-contact>
       </form>
     </mat-card>
   </div>

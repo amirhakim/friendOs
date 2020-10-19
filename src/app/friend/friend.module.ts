@@ -14,7 +14,6 @@ import { GraphComponent } from './graph/graph.component';
 import { GraphBoxComponent } from './graph-box/graph-box.component';
 import { FriendComponent } from './friend/friend.component';
 import { RouterModule } from '@angular/router';
-import { FriendResolverService } from './resolver/friend-resolver.service';
 import { ContactComponent } from './contact/contact.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCardModule } from '@angular/material/card'
@@ -43,8 +42,7 @@ import {MatChipsModule} from '@angular/material/chips';
       },
       {
         path: ':id/detail',
-        component: FriendComponent,
-        resolve: { resolvedFriend: FriendResolverService}
+        component: FriendComponent
       },
       {
         path: 'graph',
