@@ -4,7 +4,7 @@ import { Friend } from 'src/app/models/friend/friend.model';
 import { FriendState } from '../store/reducer/friend.reducer';
 import {select, Store} from '@ngrx/store';
 import { selectFriend } from '../store/selector/friend.selectors';
-import { deleteFriends } from '../store/action/friend.actions';
+import { deleteFriends, upsertFriends } from '../store/action/friend.actions';
 import { Router } from '@angular/router';
 
 
@@ -34,6 +34,10 @@ export class FriendViewComponent implements OnInit {
 
   edit(friend: Friend) {
     this.router.navigate([friend.id,'detail']);
+  }
+
+  create() {
+    this.store.dispatch(upsertFriends({}))
   }
 
 }

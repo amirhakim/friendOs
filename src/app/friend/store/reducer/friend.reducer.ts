@@ -28,10 +28,10 @@ export const friendReducer = createReducer(
     ({
       ...state,
       friends: [
-        ...(state.friends.filter(f => f.id !== friend.id)),
         (state.friends.some(f => f.id == friend.id)) ? 
           {...state.friends.find(f => f.id == friend.id), ...friend} : 
-          {...friend, id: (((1+Math.random())*0x10000)|0).toString(16).substring(1)}
+          {...friend, id: (((1+Math.random())*0x10000)|0).toString(16).substring(1)},
+          ...(state.friends.filter(f => f.id !== friend.id))
       ]
     })
     ),

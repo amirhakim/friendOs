@@ -1,8 +1,14 @@
 <div>
   <mat-card>
-    <mat-card-title>All Friends...</mat-card-title>
+    <div matLine >
+          <mat-card-title>All Friends...</mat-card-title>
+          <span></span>
+          <button mat-stroked-button (click)="create()">
+            <mat-icon>library_add</mat-icon>
+          </button>
+    </div>
       <mat-list>
-        <mat-list-item *ngFor="let friend of friends$ | async; let i=index">
+        <mat-list-item *ngFor="let friend of friends$ | async; let i=index" [ngClass]="(friend.name) ? '':'new-friend'" >
           <p matLine>
             <span> {{i+1}} .</span>
             <span ><b>Name: </b> {{friend.name}} </span>
@@ -23,3 +29,4 @@
       </mat-list>
   </mat-card>
 </div>
+
