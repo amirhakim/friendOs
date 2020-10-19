@@ -11,10 +11,10 @@
     r="10"
     [attr.cx]="node.x"
     [attr.cy]="node.y"
-    [ngClass]="graph.selectedNodes.includes(node) ? 'selected': ''"
+    [ngClass]="selectedNode?.id == node.id ? 'selected': ''"
   />
   <text
-    *ngFor="let node of graph.selectedNodes"
+    *ngFor="let node of graph.nodes"
     [attr.x]="node.x + 10"
     [attr.y]="node.y + 5"
   >
@@ -22,6 +22,7 @@
   </text>
 
 </svg>
+
 <!-- <div>
   nodes:
   {{stringify(graph.nodes)}}
@@ -34,5 +35,5 @@
 <div>
   selected:
   {{stringify(graph.selectedNodes)}}
-</div>
 </div> -->
+

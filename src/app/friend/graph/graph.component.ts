@@ -17,20 +17,19 @@ import { mergeMap } from 'rxjs/operators';
 })
 export class GraphComponent implements OnChanges, OnInit, AfterViewInit {
 
-  // event for toggling a selection of a node
   @Output() select: EventEmitter<string> = new EventEmitter<string>();
   @Input() nodes: Friend[] = [];
   @Input() selectedNodes: Friend[] = [];
   @Input() edges: Contact[] = [];
   @ViewChild('graphContainer') graphContainer;
 
+  selectedNode: Friend
 
   constructor(
   ) {
    }
 
   ngAfterViewInit(): void {
-    // enable dragging
     d3.select(this.graphContainer.nativeElement)
       .call(d3.drag()
         .container(this.graphContainer.nativeElement).subject(this.dragsubject)
@@ -39,7 +38,7 @@ export class GraphComponent implements OnChanges, OnInit, AfterViewInit {
         .on("end", this.dragended));
 
     d3.select(this.graphContainer.nativeElement)
-    .on('click', this.selectNode)  
+    .on('click', this.selectNode)
   }
 
   private simulation = d3.forceSimulation();
@@ -50,9 +49,19 @@ export class GraphComponent implements OnChanges, OnInit, AfterViewInit {
 
   private selectNode = () => {
     const point = d3.mouse(this.graphContainer.nativeElement);
-    const node = this.simulation.find(point[0], point[1], 20) as Friend;
+    const node = this.simulation.find(point[0], point[1], 5) as Friend;
+    let node2 = this.simulation.find(d3.event.x, d3.event.y,5)
 
-    if (node) this.select.emit(node.id);
+    if (node) {
+      this.selectedNode = node
+    } else {
+      this.selectedNode = null
+    }
+    console.log("MOUNSE: ",this.stringify(point))
+    console.log("EVENT: ",d3.event.x,d3.event.y)
+    console.log("FROM MOUNSE: ",this.stringify(node))
+    console.log("FROM EVENT: ",this.stringify(node2))
+
   }
 
   private dragsubject = () => {
@@ -78,7 +87,6 @@ export class GraphComponent implements OnChanges, OnInit, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges): void {
 
-    // run this only when nodes changed
     if (!changes.nodes) return;
 
     const nodes = this.simulation.nodes();
@@ -119,7 +127,6 @@ export class GraphComponent implements OnChanges, OnInit, AfterViewInit {
   stringify = JSON.stringify
 }
 
-// todo
 function setMinusSet(a: any[], b: any[]): any[] {
   return a.filter(ael => !b.map(bel => bel.id).includes(ael.id))
 }
