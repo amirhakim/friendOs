@@ -53,7 +53,8 @@ export const friendReducer = createReducer(
     (state: FriendState, {friend}) =>
     ({
       ...state,
-      friends: state.friends.filter(f => f.id !== friend.id)
+      friends: state.friends.filter(f => f.id !== friend.id),
+      contacts: state.contacts.filter(c => c.fromId !== friend.id && c.toId !== friend.id)
     })
     ),
   on(FriendActions.addContact,
@@ -74,7 +75,10 @@ export const friendReducer = createReducer(
     (state: FriendState, {contact}) =>
     ({
       ...state,
-      contacts: state.contacts.filter(c => !(c.fromId === contact.fromId && c.toId === contact.toId))
+      contacts: state.contacts.filter(c => 
+        !(c.fromId === contact.fromId && c.toId === contact.toId) &&
+        !(c.fromId === contact.toId && c.toId === contact.fromId)
+        )
     })
     ),
   on(FriendActions.upsertSelectFriend,
@@ -110,3 +114,4 @@ export const friendReducer = createReducer(
 export function reducer(state: FriendState | undefined, action: Action): any {
   return friendReducer(state, action);
 }
+
