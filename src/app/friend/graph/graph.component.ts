@@ -2,11 +2,6 @@ import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Outpu
 import * as d3 from 'd3';
 import { Contact } from 'src/app/models/contact/contact.model';
 import { Friend } from 'src/app/models/friend/friend.model';
-import { selectFriend, selectContacts } from '../store/selector/friend.selectors';
-import { FriendState } from '../store/reducer/friend.reducer';
-import {select, Store} from '@ngrx/store';
-import { Observable, combineLatest } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
 
 
 
@@ -17,9 +12,7 @@ import { mergeMap } from 'rxjs/operators';
 })
 export class GraphComponent implements OnChanges, OnInit, AfterViewInit {
 
-  @Output() select: EventEmitter<string> = new EventEmitter<string>();
   @Input() nodes: Friend[] = [];
-  @Input() selectedNodes: Friend[] = [];
   @Input() edges: Contact[] = [];
   @ViewChild('graphContainer') graphContainer;
 
@@ -48,9 +41,9 @@ export class GraphComponent implements OnChanges, OnInit, AfterViewInit {
   }
 
   private selectNode = () => {
+    console.log("click")
     const point = d3.mouse(this.graphContainer.nativeElement);
-    const node = this.simulation.find(point[0], point[1], 5) as Friend;
-    let node2 = this.simulation.find(d3.event.x, d3.event.y,5)
+    const node = this.simulation.find(point[0], point[1], 20) as Friend;
 
     if (node) {
       this.selectedNode = node
@@ -58,9 +51,7 @@ export class GraphComponent implements OnChanges, OnInit, AfterViewInit {
       this.selectedNode = null
     }
     console.log("MOUNSE: ",this.stringify(point))
-    console.log("EVENT: ",d3.event.x,d3.event.y)
     console.log("FROM MOUNSE: ",this.stringify(node))
-    console.log("FROM EVENT: ",this.stringify(node2))
 
   }
 

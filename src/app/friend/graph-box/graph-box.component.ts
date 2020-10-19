@@ -1,12 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import * as d3 from 'd3';
+import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Contact } from 'src/app/models/contact/contact.model';
 import { Friend } from 'src/app/models/friend/friend.model';
-import { selectFriend, selectContacts } from '../store/selector/friend.selectors';
 import { FriendState } from '../store/reducer/friend.reducer';
-import {select, Store} from '@ngrx/store';
-import { Observable, combineLatest } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { selectContacts, selectFriend } from '../store/selector/friend.selectors';
 
 
 @Component({

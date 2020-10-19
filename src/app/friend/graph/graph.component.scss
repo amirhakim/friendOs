@@ -9,7 +9,8 @@ svg {
     }
   
     circle {
-      fill: #88f;
+      fill:  #88f;
+      stroke: #444;
   
       &.selected {
         fill: #f88;
