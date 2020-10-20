@@ -14,8 +14,8 @@ export interface FriendState {
 }
 
 export const initialFriendState: FriendState = {
-  friends: [{id:'one',name:'one',age:25,weight:80},{id:'two',name:'two',age:30,weight:50},{id:'three',name:'three',age:20,weight:90}],
-  contacts: [{id:'c1',fromId:'one',toId:'two'},{id:'c2',fromId:'one',toId:'three'}],
+  friends: [], //[{id:'one',name:'one',age:25,weight:80},{id:'two',name:'two',age:30,weight:50},{id:'three',name:'three',age:20,weight:90}],
+  contacts: [], //[{id:'c1',fromId:'one',toId:'two'},{id:'c2',fromId:'one',toId:'three'}],
   selectFriend: null,
   selectContacts: null
 };
