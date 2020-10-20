@@ -11,6 +11,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { environment } from '../environments/environment';
 import { FriendModule } from './friend/friend.module';
 import { HeaderComponent } from './header/header.component';
+import { EffectsModule } from '@ngrx/effects';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { HeaderComponent } from './header/header.component';
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([]),
     FriendModule
   ],
   providers: [],

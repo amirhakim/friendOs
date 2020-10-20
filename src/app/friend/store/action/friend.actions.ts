@@ -7,6 +7,11 @@ export const upsertFriends = createAction(
   (friend: Friend) => ({friend})
 );
 
+export const upsertFriendsApi = createAction(
+  '[Friend-API] Upsert Friend',
+  (friend: Friend) => ({friend})
+);
+
 export const addFriends = createAction(
   '[Friend] Add Friend',
   (friend: Friend) => ({friend})

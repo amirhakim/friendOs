@@ -18,6 +18,8 @@ import { ContactComponent } from './contact/contact.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCardModule } from '@angular/material/card'
 import {MatChipsModule} from '@angular/material/chips';
+import { EffectsModule } from '@ngrx/effects';
+import { FriendEffects } from './store/effect/friend.effects';
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import {MatChipsModule} from '@angular/material/chips';
         path: 'graph',
         component : GraphBoxComponent
       }
-    ])
+    ]),
+    EffectsModule.forFeature([FriendEffects])
   ]
 })
 export class FriendModule { }
