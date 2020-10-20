@@ -9,7 +9,7 @@ ng serve
 
 ## Intro
 
-I hope that the projects that you work on are as fun as this!
+I hope that the projects that you work on, are as fun as this!
 
 ## TODO
 
