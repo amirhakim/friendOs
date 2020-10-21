@@ -2,6 +2,12 @@
 
 ## Install & Run
 
+Using:
+1. Angular 9
+1. NgRx
+1. Angular Material
+1. D3
+
 ```
 npm i
 ng serve
