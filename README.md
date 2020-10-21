@@ -1,12 +1,13 @@
 # Frndos
 
-## Install & Run
 
 Using:
 1. Angular 9
 1. NgRx
 1. Angular Material
 1. D3
+
+## Install & Run
 
 ```
 npm i
