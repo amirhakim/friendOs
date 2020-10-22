@@ -3,7 +3,7 @@
     <div matLine >
           <mat-card-title>All Friends...</mat-card-title>
           <span></span>
-          <button mat-stroked-button (click)="create()">
+          <button *ngIf="!(adding$ | async)" mat-stroked-button (click)="create()">
             <mat-icon>library_add</mat-icon>
           </button>
     </div>
@@ -29,4 +29,3 @@
       </mat-list>
   </mat-card>
 </div>
-
