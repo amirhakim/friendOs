@@ -1,5 +1,12 @@
 # Frndos
 
+
+Using:
+1. Angular 9
+1. NgRx
+1. Angular Material
+1. D3
+
 ## Install & Run
 
 ```
@@ -9,7 +16,7 @@ ng serve
 
 ## Intro
 
-I hope that the projects that you work on are as fun as this!
+I hope that the projects that you work on, are as fun as this!
 
 ## TODO
 
