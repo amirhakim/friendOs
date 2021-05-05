@@ -22,7 +22,7 @@ I hope that the projects that you work on, are as fun as this!
 
 If **time** was not an issue, these are the things I planned on doing:
 
-1. tests :disappointed: this is the one I am most ashamed of
+1. tests
 1. Install **Apollo**
 1. Adding **GraphQL** mock server and services
 1. Using **ngrx/Effects** with required success and failure actions, I created a working stub in the branch `effects`
