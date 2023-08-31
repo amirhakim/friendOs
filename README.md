@@ -1,4 +1,4 @@
-# Frndos
+# FrndOS
 
 
 Using:
